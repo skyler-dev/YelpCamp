@@ -34,7 +34,8 @@ const seedDB = async () => {
         //0,1,2,...,999
         const camp = new Campground({
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
-            title: `${sample(descriptors)} ${sample(places)}`
+            title: `${sample(descriptors)} ${sample(places)}`,
+            image: 'https://source.unsplash.com/collection/483251',
         })
         await camp.save();
     }
