@@ -1,27 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Campground</title>
-</head>
-<body>
-    <form action="/campgrounds" method="POST">
-        <!-- campground로 그룹화 -->
-        <!-- campground[] 이용-->
-        <div>
-            <label for="title">Title</label>
-            <input type="text" id="title" name="campground[title]">
-            <!-- 오두막 입력 -->
-        </div>
-        <div>
-            <label for="location">Location</label>
-            <input type="text" id="location" name="campground[location]">
-            <!-- 부산, 대한민국 입력 -->
-        </div>
-        <button>Add Campground</button>
-        <!-- req.body는 {"campground":{"title":"오두막","location":"부산, 대한민국"}} -->
-    </form>
-    <a href="/campgrounds">All Campgrounds</a>
-</body>
-</html>
+<% layout('layouts/boilerplate') %>
+<form action="/campgrounds" method="POST">
+    <!-- campground로 그룹화 -->
+    <!-- campground[] 이용-->
+    <div>
+        <label for="title">Title</label>
+        <input type="text" id="title" name="campground[title]">
+        <!-- 오두막 입력 -->
+    </div>
+    <div>
+        <label for="location">Location</label>
+        <input type="text" id="location" name="campground[location]">
+        <!-- 부산, 대한민국 입력 -->
+    </div>
+    <button>Add Campground</button>
+    <!-- req.body는 {"campground":{"title":"오두막","location":"부산, 대한민국"}} -->
+</form>
+<a href="/campgrounds">All Campgrounds</a>
