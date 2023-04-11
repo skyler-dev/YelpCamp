@@ -95,8 +95,11 @@ app.all('*', (req, res, next) => {
 })
 
 app.use((err, req, res, next)=>{
-    const {statusCode = 500, message = 'Something went wrong'} = err;
-    res.status(statusCode).send(message);
+    //변수를 추출하고 그 변수에 디폴트를 줄 뿐
+    const { statusCode = 500 } = err;
+    //실제 err 객체 업데이트
+    if(!err.message) err.message = 'Something went wrong!'
+    res.status(statusCode).render('error', { err });
 })
 
 
