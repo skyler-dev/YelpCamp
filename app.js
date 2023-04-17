@@ -8,6 +8,7 @@ const { campgroundSchema } = require('./schemas.js');
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 const Campground = require('./models/campground');
+const Review = require('./models/review');
 mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp')
     .then(() => {
         console.log("MONGO CONNECTION OPEN!!!")
@@ -74,6 +75,17 @@ app.get('/campgrounds/:id', catchAsync(async(req, res)=>{
     const {id} = req.params;
     const campground = await Campground.findById(id);
     res.render('campgrounds/show', { campground })
+}))
+// Review Create 라우트
+app.post('/campgrounds/:id/reviews', catchAsync(async(req, res)=>{
+    const campground = await Campground.findById(req.params.id);
+    const review = new Review(req.body.review);
+    //참조추가
+    campground.reviews.push(review);
+    //저장
+    await campground.save();
+    await review.save();
+    res.redirect(`/campgrounds/${campground._id}`);
 }))
 
 //*******************************************
