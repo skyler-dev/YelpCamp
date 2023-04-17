@@ -4,7 +4,7 @@ const path = require('path');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
-const { campgroundSchema } = require('./schemas.js');
+const { campgroundSchema, reviewSchema } = require('./schemas.js');
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 const Campground = require('./models/campground');
@@ -33,6 +33,15 @@ app.use(methodOverride('_method'));
 const validateCampground =(req, res, next)=>{
     //mongoose 스카마가 아니고, Joi메서드를 사용해 정의한, JS객체를 위한 패턴이다.
     const { error } = campgroundSchema.validate(req.body);
+    if(error){
+        const msg = error.details.map(el => el.message).join(',')
+        throw new ExpressError(msg, 400)
+    } else {
+        next();
+    }
+}
+const validateReview = (req,res, next)=>{
+    const { error } = reviewSchema.validate(req.body);
     if(error){
         const msg = error.details.map(el => el.message).join(',')
         throw new ExpressError(msg, 400)
@@ -77,7 +86,7 @@ app.get('/campgrounds/:id', catchAsync(async(req, res)=>{
     res.render('campgrounds/show', { campground })
 }))
 // Review Create 라우트
-app.post('/campgrounds/:id/reviews', catchAsync(async(req, res)=>{
+app.post('/campgrounds/:id/reviews', validateReview, catchAsync(async(req, res)=>{
     const campground = await Campground.findById(req.params.id);
     const review = new Review(req.body.review);
     //참조추가
