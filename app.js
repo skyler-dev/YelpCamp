@@ -96,6 +96,14 @@ app.post('/campgrounds/:id/reviews', validateReview, catchAsync(async(req, res)=
     await review.save();
     res.redirect(`/campgrounds/${campground._id}`);
 }))
+// Review Delete 라우트
+app.delete('/campgrounds/:id/reviews/:reviewId', catchAsync(async(req, res)=>{
+    const { id, reviewId } = req.params;
+    //배열에 있는 모든 인스턴스 중에 특정 조건에 만족하는 값 지움
+    await Campground.findByIdAndUpdate(id, {$pull: {reviews: reviewId}});
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/campgrounds/${id}`);
+}))
 
 //*******************************************
 // EDIT & UPDATE
