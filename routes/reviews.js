@@ -27,6 +27,7 @@ router.post('/', validateReview, catchAsync(async(req, res)=>{
     //저장
     await campground.save();
     await review.save();
+    req.flash('success', 'Created new review!');
     res.redirect(`/campgrounds/${campground._id}`);
 }))
 // Review Delete 라우트
@@ -35,6 +36,7 @@ router.delete('/:reviewId', catchAsync(async(req, res)=>{
     //배열에 있는 모든 인스턴스 중에 특정 조건에 만족하는 값 지움
     await Campground.findByIdAndUpdate(id, {$pull: {reviews: reviewId}});
     await Review.findByIdAndDelete(reviewId);
+    req.flash('success', 'Successfully deleted review');
     res.redirect(`/campgrounds/${id}`);
 }))
 
