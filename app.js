@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 //override with POST having ?_method=PUT
 //쿼리문자열로 사용할 문자열 전달. 변경 가능.
 app.use(methodOverride('_method'));
-
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/campgrounds', campgrounds);
 app.use('/campgrounds/:id/reviews', reviews);
