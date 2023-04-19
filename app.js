@@ -4,6 +4,7 @@ const path = require('path');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
+const session = require('express-session');
 const ExpressError = require('./utils/ExpressError');
 const campgrounds = require('./routes/campgrounds');
 const reviews = require('./routes/reviews');
@@ -28,6 +29,17 @@ app.use(express.urlencoded({ extended: true }));
 //쿼리문자열로 사용할 문자열 전달. 변경 가능.
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+const sessionConfig = {
+    secret: 'thisshouldbeabettersecret!',
+    resave: false,
+    saveUninitialized: false,
+    cookie:{
+        maxAge: 1000*60*60*24*7,
+        httpOnly: true,
+    }
+}
+app.use(session(sessionConfig));
 
 app.use('/campgrounds', campgrounds);
 app.use('/campgrounds/:id/reviews', reviews);
