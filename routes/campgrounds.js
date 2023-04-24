@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { campgroundSchema } = require('../schemas.js');
 const Campground = require('../models/campground');
-
+const { isLoggedIn } = require('../middleware');
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
 //유효성검사 미들웨어 함수 정의
@@ -29,11 +29,11 @@ router.get('/', catchAsync(async(req, res)=>{
 // NEW & CREATE
 // **********************************
 // (주의) 'campgrounds/new'는 '/campgrounds/:id' 아래에 있으면 안된다. new가 :id로 처리된다.
-router.get('/new', (req, res)=>{
+router.get('/new', isLoggedIn, (req, res)=>{
     res.render('campgrounds/new');
 })
 
-router.post('/', validateCampground, catchAsync(async(req, res, next)=>{
+router.post('/', isLoggedIn, validateCampground, catchAsync(async(req, res, next)=>{
     //res.send(req.body);
     // req.body는 {"campground":{"title":"오두막","location":"부산, 대한민국"}}
     // if (!req.body.campground) throw new ExpressError('Invalid Campground Data', 400);
@@ -58,7 +58,7 @@ router.get('/:id', catchAsync(async(req, res)=>{
 //*******************************************
 // EDIT & UPDATE
 // *******************************************
-router.get('/:id/edit', catchAsync(async(req, res)=>{
+router.get('/:id/edit', isLoggedIn, catchAsync(async(req, res)=>{
     //편집할 항목 조회
     const {id} = req.params;
     const campground = await Campground.findById(id);
@@ -68,7 +68,7 @@ router.get('/:id/edit', catchAsync(async(req, res)=>{
     }
     res.render('campgrounds/edit', {campground});
 }))
-router.put('/:id', validateCampground, catchAsync(async(req, res)=>{
+router.put('/:id', isLoggedIn, validateCampground, catchAsync(async(req, res)=>{
     const {id} = req.params;
     const campground = await Campground.findByIdAndUpdate(id, req.body.campground, {new: true, runValidators: true});
     //업데이트 된 데이터를 받겠다는 옵션은 생략가능
@@ -78,7 +78,7 @@ router.put('/:id', validateCampground, catchAsync(async(req, res)=>{
 // *******************************************
 // DELETE
 // *******************************************
-router.delete('/:id', catchAsync(async(req, res)=>{
+router.delete('/:id', isLoggedIn, catchAsync(async(req, res)=>{
     const {id} = req.params;
     await Campground.findByIdAndDelete(id);
     req.flash('success', 'Successfully deleted campground!');
