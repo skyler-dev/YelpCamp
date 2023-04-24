@@ -27,9 +27,18 @@ router.get('/login', (req, res) => {
     res.render('users/login');
 })
 
-router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), (req, res) => {
+router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login'}), (req, res) => {
     req.flash('success', 'welcome back!');
     res.redirect('/campgrounds');
+})
+
+//공격방지를 위해 연습 이후 POST라우트로 수정할 것.
+router.get('/logout', (req, res)=>{
+    req.logout(function (err) {
+        // if (err) { return next(err); }
+        req.flash('success', "Goodbye!");
+        res.redirect('/campgrounds');
+    });
 })
 
 module.exports = router;
