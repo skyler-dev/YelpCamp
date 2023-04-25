@@ -35,6 +35,8 @@ const seedDB = async () => {
         const price = Math.floor(Math.random() * 20) + 10;
         //10,11,...,29
         const camp = new Campground({
+            //이름: new, 암호: new 의 ObjectId
+            author: '6447a1783e644889a140435c',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
             image: 'https://source.unsplash.com/collection/483251',
