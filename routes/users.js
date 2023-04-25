@@ -31,11 +31,11 @@ router.get('/login', (req, res) => {
     res.render('users/login');
 })
 
-router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login', keepSessionUnfo: true}), (req, res) => {
+router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login', keepSessionInfo: true}), (req, res) => {
     req.flash('success', 'welcome back!');
     const redirectUrl = req.session.returnTo || '/campgrounds';
     //아래 세션은 계속 사용하지 않으므로 변수 생성 후 삭제
-    // console.log(req.session.returnTo) undefined되는 오류해결: keepSessionUnfo: true
+    // console.log(req.session.returnTo) undefined되는 오류해결: keepSessionInfo: true
     console.log('In login Route', req.session.returnTo);
     delete req.session.returnTo;
     res.redirect(redirectUrl);
