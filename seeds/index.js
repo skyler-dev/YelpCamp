@@ -39,7 +39,16 @@ const seedDB = async () => {
             author: '6447a1783e644889a140435c',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
-            image: 'https://source.unsplash.com/collection/483251',
+            images: [
+                {
+                    url: 'https://res.cloudinary.com/doo4mczu4/image/upload/v1682681943/YelpCamp/pcyubcxdfxlstxnwihtm.jpg',
+                    filename: 'YelpCamp/pcyubcxdfxlstxnwihtm'
+                },
+                {
+                    url: 'https://res.cloudinary.com/doo4mczu4/image/upload/v1682681946/YelpCamp/ecwcgd6cpbx4ilzptoma.jpg',
+                    filename: 'YelpCamp/ecwcgd6cpbx4ilzptoma',
+                },
+            ],
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores numquam veritatis iure esse eum quae doloribus cum unde repudiandae, eaque fuga commodi iusto, quasi beatae sed delectus quis, neque illum?',
             //속기법 price: price
             price,
