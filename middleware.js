@@ -37,6 +37,7 @@ module.exports.isReviewAuthor = async(req, res, next) => {
 module.exports.validateCampground =(req, res, next)=>{
     //mongoose 스카마가 아니고, Joi메서드를 사용해 정의한, JS객체를 위한 패턴이다.
     const { error } = campgroundSchema.validate(req.body);
+    console.log(req.body);
     if(error){
         const msg = error.details.map(el => el.message).join(',')
         throw new ExpressError(msg, 400)
