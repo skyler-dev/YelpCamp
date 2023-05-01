@@ -1,4 +1,5 @@
 const Campground = require('../models/campground');
+const { cloudinary } = require("../cloudinary");
 
 module.exports.index = async(req, res)=>{
     const campgrounds = await Campground.find({});
@@ -46,11 +47,20 @@ module.exports.renderEditForm = async(req, res)=>{
 
 module.exports.updateCampground = async(req, res)=>{
     const {id} = req.params;
+    console.log(req.body);
     const campground = await Campground.findByIdAndUpdate(id, req.body.campground, {new: true, runValidators: true});
     const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
     //배열이니까 ...연산자 사용
     campground.images.push(...imgs);
     await campground.save();
+    if (req.body.deleteImages) {
+        // cloudinary에서 삭제(cloudinary의 Upload API 중 destroy 메서드. public_id 전달). 시드파일에서 공유하는 이미지url을 제거하지 않게 주의
+        for (let filename of req.body.deleteImages) {
+            await cloudinary.uploader.destroy(filename);
+        }
+        // mongoDB에서 삭제(특정 조건에 맞는 값들의 모든 인스턴스를 기존의 배열에서 제거).
+        await campground.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } })
+    }
     req.flash('success', 'Successfully updated campground!');
     res.redirect(`/campgrounds/${campground._id}`);
 }
