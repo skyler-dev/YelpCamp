@@ -9,4 +9,11 @@ const map = new mapboxgl.Map({
 // Create a new marker.
 const marker = new mapboxgl.Marker()
     .setLngLat(campground.geometry.coordinates) //[lng, lat]
+    .setPopup(new mapboxgl.Popup()
+        .setHTML(
+            //Sets the popup's content to the HTML provided as a string.
+            `<h3>${campground.title}</h3>
+            <p>${campground.location}</p>`
+        )
+    ) // add popup
     .addTo(map);
