@@ -39,6 +39,11 @@ const seedDB = async () => {
             author: '6447a1783e644889a140435c',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
+            //시애틀 하드코딩
+            geometry: {
+                type: "Point",
+                coordinates: [-122.330062,47.603832]
+            },
             images: [
                 {
                     url: 'https://res.cloudinary.com/doo4mczu4/image/upload/v1682681943/YelpCamp/pcyubcxdfxlstxnwihtm.jpg',

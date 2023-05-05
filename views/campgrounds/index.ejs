@@ -7,7 +7,13 @@
     <div class="row">
         <!-- 12유닛 중 4유닛 차지. 즉 행에서 3분의 1 -->
         <div class="col-md-4">
+            <%if(campground.images.length) {%>
             <img class="img-fluid" src="<%= campground.images[0].url %>">
+            <% }else {%>
+            <!-- 디폴트 이미지 부여 -->
+            <img class="img-fluid" alt=""
+                src="https://res.cloudinary.com/doo4mczu4/image/upload/v1682681943/YelpCamp/pcyubcxdfxlstxnwihtm.jpg">
+            <% } %>
         </div>
         <!-- 3분의 2차지 -->
         <div class="col-md-8">
