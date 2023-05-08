@@ -29,7 +29,7 @@ const seedDB = async () => {
     await Campground.deleteMany({});
     //루프로 캠핑장 50개 만들기
     //목적 : 랜덤숫자로 도시고르기, 이름만들기
-    for(let i = 0 ; i <50 ; i++){
+    for(let i = 0 ; i <300 ; i++){
         const random1000 = Math.floor(Math.random() * 1000);
         //0,1,2,...,999
         const price = Math.floor(Math.random() * 20) + 10;
@@ -42,7 +42,10 @@ const seedDB = async () => {
             //시애틀 하드코딩
             geometry: {
                 type: "Point",
-                coordinates: [-122.330062,47.603832]
+                coordinates: [
+                    cities[random1000].longitude,
+                    cities[random1000].latitude,
+                ]
             },
             images: [
                 {
