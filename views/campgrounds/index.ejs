@@ -1,4 +1,7 @@
 <% layout('layouts/boilerplate') %>
+<!-- clusterMap 표시-->
+<div id="map" style='width: 100%; height: 300px;'></div>
+
 <h1>All Campgrounds</h1>
 <a href="/campgrounds/new">Add Campground</a>
 
@@ -30,3 +33,14 @@
     </div>
 </div>
 <% } %>
+
+<script>
+    // 엑세스토큰을 ejs파일에서 아래의 JavaScript로 넣어줘야한다.
+    const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+    //JavaScript 객체인 정보를 JSON으로 변환. campgrounds는 배열이므로 
+    //clusterMap.js에서 사용하는 data 형식에 맞게 features 안에 넣어야 한다.
+    const campgrounds = { features: <%- JSON.stringify(campgrounds) %> };
+</script>
+<!-- 내 페이지에 map을 추가하기 위해 필요한 최소한의 정보로,
+    Map class 구성부분을 별도 스크립트로 분리-->
+<script src="/javascripts/clusterMap.js"></script>

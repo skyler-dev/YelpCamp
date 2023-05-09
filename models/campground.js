@@ -15,6 +15,9 @@ ImageSchema.virtual('thumbnail').get(function(){
     return this.url.replace('/upload', '/upload/w_200');
 })
 
+// By default, Mongoose does not include virtuals when you convert a document to JSON. https://mongoosejs.com/docs/tutorials/virtuals.html#virtuals-in-json
+const opts = { toJSON: { virtuals: true } }
+
 const CampgroundSchema = new Schema({
     title: String,
     images: [ImageSchema],
@@ -42,6 +45,12 @@ const CampgroundSchema = new Schema({
             ref: "Review"
         }
     ]
+}, opts);
+
+//clusterMap에 팝업을 추가하기 위해, 가상 properties 생성
+CampgroundSchema.virtual('properties.popUpMarkup').get(function(){
+    return `<strong><a href="/campgrounds/${this._id}">${this.title}</a></strong>
+    <p>${this.description.substring(0, 20)}...</p>`
 });
 
 //(콜백에) 문서를 전달하는 쿼리 미들웨어
