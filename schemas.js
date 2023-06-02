@@ -1,7 +1,5 @@
-//mongoose 스카마가 아니고, Joi메서드를 사용해 정의한, JS객체를 위한 패턴이다.
 const BaseJoi = require('joi');
 
-// input으로 들어오는 HTML 태그 삭제
 const sanitizeHtml = require('sanitize-html');
 
 const extension = (joi) => ({
@@ -23,7 +21,7 @@ const extension = (joi) => ({
         }
     }
 });
-// extension의 escapeHTML으로 옵션 적용하기 위함
+
 const Joi = BaseJoi.extend(extension);
 
 module.exports.campgroundSchema = Joi.object({

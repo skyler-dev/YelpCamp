@@ -1,21 +1,14 @@
 <% layout('layouts/boilerplate') %>
-<!-- 그리드 안에 넣기 -->
 <div class="row">
     <h1 class="text-center">New Campground</h1>
-    <!-- 유닛 중에서 가운데 6유닛을 차지하되 모두 왼쪽 정렬되지 않고 가운데로 올 수 있도록 3만큼 오프셋주기 -->
     <div class="col-md-6 offset-md-3">
-        <!-- 네이티브 브라우저 유효성 검사 방지. 부트스트랩이 제어하도록함. class를 새로 만들어 이 클래스를 기반으로 JS가 전체 웹페이지에서 모든 폼을 찾는다.-->
         <form action="/campgrounds" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
-                    <!-- campground로 그룹화 -->
-                    <!-- campground[] 이용-->
-            <!-- 하단 여백 추가 -->
             <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
                 <input class="form-control" type="text" id="title" name="campground[title]" required>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
-                    <!-- 오두막 입력 -->
             </div>
             <div class="mb-3">
                 <label class="form-label" for="location">Location</label>
@@ -23,21 +16,11 @@
                 <div class="valid-feedback">
                     Looks good!
                 </div>
-                    <!-- 부산, 대한민국 입력 -->
             </div>
-            <!-- <div class="mb-3">
-                <input type="file" name="image" multiple>
-                <label class="form-label" for="image">Image Url</label>
-                <input class="form-control" type="txt" id="image" name="campground[image]" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div> -->
             <div class="mb-3">
                 <label class="form-label" for="price">Campground Price</label>
                 <div class="input-group">
                     <span class="input-group-text" id="price-label">$</span>
-                    <!-- aria-describedby을 써서 span을 input과 연결 -->
                     <input type="text" class="form-control" id="price" name="campground[price]" placeholder="0.00" aria-label="price" aria-describedby="price-label" required>
                     <div class="valid-feedback">
                         Looks good!
@@ -57,7 +40,6 @@
             </div>
             <div class="mb-3">
                 <button class="btn btn-success">Add Campground</button>
-                    <!-- req.body는 {"campground":{"title":"오두막","location":"부산, 대한민국"}} -->
             </div>
         </form>
         <a href="/campgrounds">All Campgrounds</a>
