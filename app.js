@@ -23,7 +23,9 @@ const helmet = require('helmet');
 
 const mongoSanitize = require('express-mongo-sanitize');
 
-mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp')
+const MongoDBStore = require('connect-mongo');
+const dbUrl = process.env.DB_URL || 'mongodb://127.0.0.1:27017/yelp-camp';
+mongoose.connect(dbUrl)
     .then(() => {
         console.log("MONGO CONNECTION OPEN!!!")
     })
@@ -50,10 +52,25 @@ app.use(
     }),
   );
 
+const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
+
+const store = MongoDBStore.create({
+    mongoUrl: dbUrl,
+    crypto: {
+        secret
+    },
+    touchAfter: 24 * 60 * 60 // time period in seconds
+})
+store.on("error", function (e) {
+    console.log("SESSION STORE ERROR", e)
+})
+
 const sessionConfig = {
+    // 메모리 저장소에 의존하지 않기 위함
+    store,
     // 기본값인 'connect.sid'대신 다른 이름 사용
     name: 'session',
-    secret: 'thisshouldbeabettersecret!',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie:{
