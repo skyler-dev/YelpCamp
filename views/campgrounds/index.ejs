@@ -1,10 +1,15 @@
 <% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="/stylesheets/search.css">
 <div id="cluster-map"></div>
 
 <h1>All Campgrounds</h1>
+<div class="search-wrapper" data-search>
+    <label for="search">Search Campgrounds</label>
+    <input type="search" id="search">
+</div>
 
 <% for (let campground of campgrounds){ %>
-<div class="card mb-3">
+<div class="card mb-3">  
     <div class="row">
         <div class="col-md-4">
             <%if(campground.images.length) {%>
@@ -33,3 +38,4 @@
     const campgrounds = { features: <%- JSON.stringify(campgrounds) %> };
 </script>
 <script src="/javascripts/clusterMap.js"></script>
+<script src="/javascripts/search.js"></script>
