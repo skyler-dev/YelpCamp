@@ -28,26 +28,26 @@
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item text-muted"><%= campground.location %></li>
-                <li class="list-group-item">Submitted by <%= campground.author.username %></li>
-                <li class="list-group-item">$<%= campground.price%>/night</li>
+                <li class="list-group-item">작성자 : <%= campground.author.username %>님</li>
+                <li class="list-group-item">1박에 &#8361;<%= campground.price%>원</li>
             </ul>
             <% if( currentUser && campground.author.equals(currentUser._id)) { %>
             <div class="card-body">
-                <a href="/campgrounds/<%= campground._id %>/edit" class="card-link btn btn-info">Edit</a>
+                <a href="/campgrounds/<%= campground._id %>/edit" class="card-link btn btn-info">수정하기</a>
                 <form class="d-inline" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
-                    <button class="btn btn-danger">Delete</button>
+                    <button class="btn btn-danger">삭제하기</button>
                 </form>
             </div>
             <% } %>
-            <div class="card-footer text-muted">
+            <!-- <div class="card-footer text-muted">
                 2 days ago
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="col-6">
         <div id='map'></div>
         <% if(currentUser){ %>
-        <h2>Leave a Review</h2>
+        <h2>리뷰를 남겨보세요!</h2>
         <form action="/campgrounds/<%= campground._id %>/reviews" method="POST" class="mb-3 validated-form" novalidate>
             <div class="mb-3">
                 <fieldset class="starability-basic">
@@ -66,13 +66,13 @@
                 </fieldset>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="body">Review Text</label>
+                <label class="form-label" for="body">리뷰 내용</label>
                 <textarea class="form-control" type="text" name="review[body]" id="body" cols="30" rows="3" required></textarea>
                 <div class="valid-feedback">
-                    Looks good!
+                    유효합니다!
                 </div>
             </div>
-            <button class="btn btn-success">Submit</button>
+            <button class="btn btn-success">제출하기</button>
         </form>
         <% } %>
         <% for(let review of campground.reviews){ %>
@@ -82,10 +82,10 @@
                 <p class="starability-result" data-rating="<%=review.rating%>">
                     Rated: <%= review.rating %> stars
                 </p>
-                <p class="card-text">Review: <%= review.body %></p>
+                <p class="card-text">리뷰 내용: <%= review.body %></p>
                 <%  if( currentUser && review.author.equals(currentUser._id))  {%>
                 <form action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
-                    <button class="btn btn-danger btn-sm">Delete</button>
+                    <button class="btn btn-danger btn-sm">삭제하기</button>
                 </form>
                 <% } %>
             </div>

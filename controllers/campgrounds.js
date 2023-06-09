@@ -23,7 +23,7 @@ module.exports.createCampground = async(req, res, next)=>{
     campground.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
     campground.author = req.user._id;
     await campground.save();
-    req.flash('success', 'Successfully made a new campground!');
+    req.flash('success', '성공적으로 새로운 캠핑장을 만들었어요!');
     res.redirect(`/campgrounds/${campground._id}`)
 }
 
@@ -36,7 +36,7 @@ module.exports.showCampground = async(req, res)=>{
         }
     }).populate('author');
     if (!campground) {
-        req.flash('error', 'Cannot find that campground!');
+        req.flash('error', '그 캠핑장은 찾을 수 없어요!');
         return res.redirect('/campgrounds');
     }
     res.render('campgrounds/show', { campground })
@@ -46,7 +46,7 @@ module.exports.renderEditForm = async(req, res)=>{
     const {id} = req.params;
     const campground = await Campground.findById(id);
     if (!campground) {
-        req.flash('error', 'Cannot find that campground!');
+        req.flash('error', '그 캠핑장은 찾을 수 없어요!');
         return res.redirect('/campgrounds');
     }
     res.render('campgrounds/edit', {campground});
@@ -64,13 +64,13 @@ module.exports.updateCampground = async(req, res)=>{
         }
         await campground.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } })
     }
-    req.flash('success', 'Successfully updated campground!');
+    req.flash('success', '성공적으로 캠핑장을 업데이트했어요!');
     res.redirect(`/campgrounds/${campground._id}`);
 }
 
 module.exports.deleteCampground = async(req, res)=>{
     const {id} = req.params;
     await Campground.findByIdAndDelete(id);
-    req.flash('success', 'Successfully deleted campground!');
+    req.flash('success', '성공적으로 캠핑장을 삭제했어요!');
     res.redirect('/campgrounds');
 }

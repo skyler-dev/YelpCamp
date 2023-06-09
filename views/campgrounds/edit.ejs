@@ -1,46 +1,46 @@
 <% layout('layouts/boilerplate')%>
 <div class="row">
-    <h1 class="text-center">Edit Campground</h1>
+    <h1 class="text-center">수정하기</h1>
     <div class="col-md-6 offset-md-3">
         <form action="/campgrounds/<%=campground._id%>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
             <div class="mb-3">
-                <label class="form-label" for="title">Title</label>
+                <label class="form-label" for="title">캠핑장 이름</label>
                 <input class="form-control" type="text" id="title" name="campground[title]" required
                     value="<%=campground.title %>">
                 <div class="valid-feedback">
-                    Looks good!
+                    유효합니다!
                 </div>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="location">Location</label>
+                <label class="form-label" for="location">캠핑장 위치</label>
                 <input class="form-control" type="text" id="location" name="campground[location]" required
                     value="<%=campground.location %>">
                 <div class="valid-feedback">
-                    Looks good!
+                    유효합니다!
                 </div>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="price">Campground Price</label>
+                <label class="form-label" for="price">캠핑장 가격 (1박당)</label>
                 <div class="input-group">
-                    <span class="input-group-text" id="price-label">$</span>
+                    <span class="input-group-text" id="price-label">&#8361;</span>
                     <input type="text" class="form-control" id="price" placeholder="0.00" aria-label="price"
                         aria-describedby="price-label" name="campground[price]" required value="<%=campground.price %>">
                     <div class="valid-feedback">
-                        Looks good!
+                        유효합니다!
                     </div>
                 </div>
             </div>
 
             <div class="mb-3">
-                <label class="form-label" for="description">Description</label>
+                <label class="form-label" for="description">캠핑장 설명</label>
                 <textarea class="form-control" type="text" id="description"
                     name="campground[description]" required><%= campground.description%></textarea>
                 <div class="valid-feedback">
-                    Looks good!
+                    유효합니다!
                 </div>
             </div>
             <div class="mb-3">
-                <label for="image" class="form-label">Add more image(s)...</label>
+                <label for="image" class="form-label">더 많은 이미지를 추가하세요...</label>
                 <input class="form-control" type="file" id="image" name="image" multiple>
             </div>
             <div class="mb-3">
@@ -48,15 +48,15 @@
                     <img src="<%= img.thumbnail %>" alt="">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="image-<%= i %>" name="deleteImages[]" value="<%= img.filename %>">
-                        <label class="form-check-label" for="image-<%= i %>">Delete?</label>
+                        <label class="form-check-label" for="image-<%= i %>">삭제하시겠습니까?</label>
                       </div>
                 <% }) %>
             </div>
             <div class="mb-3">
-                <button class="btn btn-info">Update Campground</button>
+                <button class="btn btn-info">적용하기</button>
             </div>
         </form>
-        <a href="/campgrounds/<%= campground._id%>">Back To Campground</a>
+        <a href="/campgrounds/<%= campground._id%>">원래 캠핑장 페이지로 돌아가기</a>
 
     </div>
 </div>

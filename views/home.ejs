@@ -13,13 +13,13 @@
             <div>
                 <h3 class="float-md-start mb-0">YelpCamp</h3>
                 <nav class="nav nav-masthead justify-content-center float-md-end">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    <a class="nav-link" href="/campgrounds">Campgrounds</a>
+                    <a class="nav-link active" aria-current="page" href="#">홈페이지</a>
+                    <a class="nav-link" href="/campgrounds">모든 캠핑장들</a>
                     <% if(!currentUser) { %>
-                    <a class="nav-link" href="/login">Login</a>
-                    <a class="nav-link" href="/register">Register</a>
+                    <a class="nav-link" href="/login">로그인</a>
+                    <a class="nav-link" href="/register">등록하기</a>
                     <% } else { %>
-                    <a class="nav-link" href="/logout">Logout</a>
+                    <a class="nav-link" href="/logout">로그아웃</a>
                     <% } %>
                 </nav>
             </div>
@@ -27,10 +27,9 @@
 
         <main class="px-3">
             <h1>YelpCamp</h1>
-            <p class="lead"> Welcome to YelpCamp! <br> Jump right in and explore our many campgrounds. <br>
-                Feel free to share some of your own and comment on others!</p>
-            <a href="/campgrounds" class="btn btn-lg btn-secondary fw-bold bg-white">View
-                Campgrounds</a>
+            <p class="lead"> YelpCamp에 오신 것을 환영합니다! <br> 우리의 다양한 캠핑장들을 둘러보세요. <br>
+                자유롭게 새로운 캠핑장을 소개하고 리뷰도 남겨보세요!</p>
+            <a href="/campgrounds" class="btn btn-lg btn-secondary fw-bold bg-white">모든 캠핑장 보러가기</a>
         </main>
 
         <footer class="mt-auto text-white-50">

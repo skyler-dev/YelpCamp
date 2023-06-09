@@ -8,7 +8,7 @@ module.exports.createReview = async(req, res)=>{
     campground.reviews.push(review);
     await campground.save();
     await review.save();
-    req.flash('success', 'Created new review!');
+    req.flash('success', '성공적으로 새 리뷰를 작성했어요!');
     res.redirect(`/campgrounds/${campground._id}`);
 }
 
@@ -16,6 +16,6 @@ module.exports.deleteReview = async(req, res)=>{
     const { id, reviewId } = req.params;
     await Campground.findByIdAndUpdate(id, {$pull: {reviews: reviewId}});
     await Review.findByIdAndDelete(reviewId);
-    req.flash('success', 'Successfully deleted review');
+    req.flash('success', '성공적으로 리뷰를 삭제했어요!');
     res.redirect(`/campgrounds/${id}`);
 }

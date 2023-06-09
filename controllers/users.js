@@ -11,7 +11,7 @@ module.exports.register = async (req, res, next)=>{
         const registeredUser = await User.register(user, password);
         req.login(registeredUser, function(err) {
             if (err) { return next(err); }
-            req.flash('success','Welcome to Yelp Camp!');
+            req.flash('success','Yelp Camp에 오신 것을 환영해요!');
             res.redirect('/campgrounds');
         })
     } catch(e) {
@@ -25,7 +25,7 @@ module.exports.renderLogin = (req, res) => {
 }
 
 module.exports.login = (req, res) => {
-    req.flash('success', 'welcome back!');
+    req.flash('success', '다시 돌아온 것을 환영해요!');
     const redirectUrl = req.session.returnTo || '/campgrounds';
     delete req.session.returnTo;
     res.redirect(redirectUrl);
@@ -34,7 +34,7 @@ module.exports.login = (req, res) => {
 module.exports.logout = (req, res)=>{
     req.logout(function (err) {
         // if (err) { return next(err); }
-        req.flash('success', "Goodbye!");
+        req.flash('success', "안녕히 가세요!");
         res.redirect('/campgrounds');
     });
 }

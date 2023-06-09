@@ -2,9 +2,9 @@
 <link rel="stylesheet" href="/stylesheets/search.css">
 <div id="cluster-map"></div>
 
-<h1>All Campgrounds</h1>
+<h1>모든 캠핑장들</h1>
 <div class="search-wrapper" data-search>
-    <label for="search">Search Campgrounds</label>
+    <label for="search">원하는 캠핑장을 검색하세요!</label>
     <input type="search" id="search">
 </div>
 
@@ -26,7 +26,7 @@
                 <p class="card-text">
                     <small class="text-muted"><%= campground.location %></small>
                 </p>
-                <a class="btn btn-primary" href="/campgrounds/<%=campground._id%>">View <%= campground.title %></a>
+                <a class="btn btn-primary" href="/campgrounds/<%=campground._id%>"><%= campground.title %> 자세히 보기</a>
             </div>
         </div>
     </div>
