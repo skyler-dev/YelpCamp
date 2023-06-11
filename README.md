@@ -19,6 +19,46 @@
 - 폼에 클라이언트측과 서버측 유효성 검사(validation)가 작동합니다.
 - 지도의 원을 누르면 확대되면서 클러스터가 나눠집니다. 핀을 선택 시 팝업이 나타납니다.
 
+### 사용 방법
+
+1. **mongoDB**를 설치합니다.
+2. 최상위 폴더안에서 다음 코드를 실행해 모든 **디펜던시**를 설치합니다.
+    
+    ```bash
+    npm i
+    ```
+    
+3. **.env파일**을 최상위 폴더에 만들어 `이름=값`의 형태로 다음을 포함하여야 합니다.
+    - `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_KEY`, `CLOUDINARY_SECRET`은 Cloudinary 회원가입 후 Credentials에서 확인 가능합니다.
+    - `MAPBOX_TOKEN`은 엑세스토큰으로, MAPBOX회원가입 후 [Access tokens page](https://account.mapbox.com/access-tokens/)에서 확인 가능합니다.
+    - `SECRET`은 임의로 설정 가능합니다.
+    - `DB_URL`은 Connection String으로, MongoDB Atlas에 회원가입 후 Database의 connect에서 확인 가능합니다.
+    
+    ```
+    CLOUDINARY_CLOUD_NAME=값
+    CLOUDINARY_KEY=값
+    CLOUDINARY_SECRET=값
+    MAPBOX_TOKEN=값
+    SECRET=값
+    DB_URL=값
+    ```
+    
+4. **시드 데이터**가 필요한 경우
+    - 한 터미널에서 Mongod를 실행합니다. 로컬의 MongoDB에 저장합니다.
+    - 다른 터미널에서 아래 코드를 실행합니다.
+    
+    ```bash
+    node ./seeds/index.js
+    ```
+    
+5. **앱 실행** 방법
+    
+    ```bash
+    node app.js
+    ```
+    
+6. localhost:3000으로 이동합니다.
+
 ### 사용한 도구
 
 - connect-flash
