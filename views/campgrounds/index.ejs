@@ -1,41 +1,51 @@
 <% layout('layouts/boilerplate') %>
-<link rel="stylesheet" href="/stylesheets/search.css">
-<div id="cluster-map"></div>
+<link rel="stylesheet" href="/stylesheets/search.css" />
+<link rel="stylesheet" href="/stylesheets/slideDownAni.css" />
 
-<h1>모든 캠핑장들</h1>
+<div class="cluster-map-container show">
+  <div id="cluster-map" class="show"></div>
+</div>
+
+<h1 id="idex-title">모든 캠핑장들</h1>
 <div class="search-wrapper" data-search>
-    <label for="search">원하는 캠핑장을 검색하세요!</label>
-    <input type="search" id="search">
+  <label for="search" id="search-label">원하는 캠핑장을 검색하세요! Test</label>
+  <input type="search" id="search" placeholder="지역, 캠핑장 이름"/>
 </div>
 
 <% for (let campground of campgrounds){ %>
-<div class="card mb-3">  
-    <div class="row">
-        <div class="col-md-4">
-            <%if(campground.images.length) {%>
-            <img class="img-fluid" src="<%= campground.images[0].url %>">
-            <% }else {%>
-            <img class="img-fluid" alt=""
-                src="https://res.cloudinary.com/doo4mczu4/image/upload/v1682681943/YelpCamp/pcyubcxdfxlstxnwihtm.jpg">
-            <% } %>
-        </div>
-        <div class="col-md-8">
-            <div class="card-body">
-                <h5 class="card-title"><%= campground.title %></h5>
-                <p class="card-text"><%= campground.description %></p>
-                <p class="card-text">
-                    <small class="text-muted"><%= campground.location %></small>
-                </p>
-                <a class="btn btn-primary" href="/campgrounds/<%=campground._id%>"><%= campground.title %> 자세히 보기</a>
-            </div>
-        </div>
+<div class="card mb-3">
+  <div class="row">
+    <div class="col-md-4">
+      <%if(campground.images.length) {%>
+      <img class="img-fluid" src="<%= campground.images[0].url %>" />
+      <% }else {%>
+      <img
+        class="img-fluid"
+        alt=""
+        src="https://res.cloudinary.com/doo4mczu4/image/upload/v1682681943/YelpCamp/pcyubcxdfxlstxnwihtm.jpg"
+      />
+      <% } %>
     </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><%= campground.title %></h5>
+        <p class="card-text"><%= campground.description %></p>
+        <p class="card-text">
+          <small class="text-muted"><%= campground.location %></small>
+        </p>
+        <a class="btn btn-primary" href="/campgrounds/<%=campground._id%>"
+          ><%= campground.title %> 자세히 보기</a
+        >
+      </div>
+    </div>
+  </div>
 </div>
 <% } %>
 
 <script>
-    const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
-    const campgrounds = { features: <%- JSON.stringify(campgrounds) %> };
+  const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+  const campgrounds = { features: <%- JSON.stringify(campgrounds) %> };
 </script>
 <script src="/javascripts/clusterMap.js"></script>
 <script src="/javascripts/search.js"></script>
+<script src="/javascripts/slideDownAni.js"></script>
